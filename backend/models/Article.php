@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "article".
@@ -13,7 +14,7 @@ use Yii;
  * @property integer $article_category_id
  * @property integer $sort
  * @property integer $status
- * @property integer $create_time
+// * @property integer $create_time
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -28,9 +29,9 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'intro', 'sort', 'status', 'create_time'], 'required'],
+            [['name', 'intro', 'sort', 'status',], 'required'],
             [['intro'], 'string'],
-            [['article_category_id', 'sort', 'status', 'create_time'], 'integer'],
+            [['article_category_id', 'sort', 'status'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];
@@ -49,6 +50,17 @@ class Article extends \yii\db\ActiveRecord
             'sort' => '排序',
             'status' => '状态',
 
+        ];
+    }
+    public function behaviors()
+    {
+        return [
+            'time'=>[
+                'class'=>TimestampBehavior::className(),
+                'attributes'=>[
+                    self::EVENT_BEFORE_INSERT => ['create_time'],
+                ]
+            ]
         ];
     }
 }

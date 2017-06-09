@@ -7,6 +7,7 @@
             <th>文章类型</th>
             <th>排序</th>
             <th>状态</th>
+            <th>创建时间</th>
             <th>操作</th>
         </tr>
         <!--    --><?php //var_dump($brands);exit;?>
@@ -18,9 +19,9 @@
                 <td><?=$article->article_category_id?></td>
                 <td><?=$article->sort?></td>
                 <td><?=$article->status?></td>
-                <td><?=$article->create_time?></td>
-                <td><?=\yii\bootstrap\Html::a('修改',['article/edit','id'=>$type->id],['class'=>'btn btn-info'])?>
-                    <?=\yii\bootstrap\Html::a('删除',['article/delete','id'=>$type->id],['class'=>'btn btn-danger'])?>
+                <td><?=date('Y-m-d',$article->create_time)?></td>
+                <td><?=\yii\bootstrap\Html::a('修改',['article/edit','id'=>$article->id],['class'=>'btn btn-info'])?>
+                    <?=\yii\bootstrap\Html::a('删除',['article/delete','id'=>$article->id],['class'=>'btn btn-danger'])?>
                 </td>
             </tr>
         <?php endforeach;?>
