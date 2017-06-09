@@ -43,6 +43,15 @@ return [
             'showScriptName' => false,
             'rules' => [
             ],
+
+        ],
+        'qiniu'=>[
+            'class'=>\backend\components\Qiniu::className(),
+            'up_host'=>'http://up-z2.qiniu.com',
+            'accessKey'=>'jTFcio8LuVcDor50p8smyJj8xhRTFcfqBBtLXwi-',
+            'secretKey'=>'3WiV7WgZ-Wz_9gMkxAKawCupS7tx3h6l3jiKMgOT',
+            'bucket'=>'qingyang',
+            'domain'=>'http://or9rvl3di.bkt.clouddn.com',
         ],
 
     ],

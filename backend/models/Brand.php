@@ -16,12 +16,6 @@ use Yii;
  */
 class Brand extends \yii\db\ActiveRecord
 {
-    public $imgFile;
-    /**
-     * @inheritdoc
-     */
-
-
     /**
      * @inheritdoc
      */
@@ -34,7 +28,6 @@ class Brand extends \yii\db\ActiveRecord
             [['name', 'logo'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['sort'], 'unique'],
-            ['imgFile','file']
         ];
     }
 
@@ -49,6 +42,7 @@ class Brand extends \yii\db\ActiveRecord
             'intro' => '简介',
             'sort' => '排序',
             'status' => '状态',
+            'imgFile'=>'添加图片'
         ];
     }
 }

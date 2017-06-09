@@ -48,6 +48,7 @@ class Article extends \yii\db\ActiveRecord
             'article_category_id' => '文章分类id',
             'sort' => '排序',
             'status' => '状态',
+
         ];
     }
 }

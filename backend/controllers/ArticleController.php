@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Article;
+use backend\models\Articlecategory;
 use backend\models\Articledetail;
 use yii\web\Request;
 
@@ -17,6 +18,8 @@ class ArticleController extends \yii\web\Controller
     {
         $model=new Article();
         $model1=new Articledetail();
+        $model2=Articlecategory::find()->all();
+
         $request=new Request();
         if ($request->isPost){
             $model->load($request->post());
@@ -30,7 +33,7 @@ class ArticleController extends \yii\web\Controller
             }
             return $this->redirect(['article/index']);
         }
-        return $this->render('add',['model'=>$model,'model1'=>$model1]);
+        return $this->render('add',['model'=>$model,'model2'=>$model2]);
     }
 
 
