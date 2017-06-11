@@ -4,9 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Brand;
 use yii\web\Request;
-use yii\web\UploadedFile;
 use xj\uploadify\UploadAction;
-use crazyfd\qiniu\Qiniu;
 
 
 class BrandController extends \yii\web\Controller
