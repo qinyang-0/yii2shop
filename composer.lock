@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5f3e671a419ddcfdfc73a49780992f6",
+    "content-hash": "37be7334dfc25a7ef6021344711d96e2",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -294,6 +294,47 @@
                 "yii"
             ],
             "time": "2016-08-31 00:36:28"
+        },
+        {
+            "name": "crazyfd/yii2-ueditor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazyfd/yii2-ueditor.git",
+                "reference": "07fbe2645b53e5ce7b942b2ad2359067ed91a838"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/crazyfd/yii2-ueditor/07fbe2645b53e5ce7b942b2ad2359067ed91a838.zip",
+                "reference": "07fbe2645b53e5ce7b942b2ad2359067ed91a838",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "crazyfd\\ueditor\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "crazyfd",
+                    "email": "crazyfd@qq.com"
+                }
+            ],
+            "description": "yii2使用百度编辑器上传",
+            "keywords": [
+                "ueditor",
+                "upload",
+                "yii"
+            ],
+            "time": "2014-11-04 02:00:30"
         },
         {
             "name": "creocoder/yii2-nested-sets",
@@ -3157,7 +3198,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "crazyfd/yii2-qiniu": 20
+        "crazyfd/yii2-qiniu": 20,
+        "crazyfd/yii2-ueditor": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
