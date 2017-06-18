@@ -24,4 +24,24 @@ namespace backend\models;
              'remember'=>'记住我',
          ];
      }
+     public function login()
+     {
+         $user=User::findOne(['name'=>$this->name]);
+         if ($user){
+             if(\Yii::$app->security->validatePassword($this->pwd,$user->pwd)){
+                 //登陆
+                 //自动登陆
+                 $duration=$this->remember?7*24*3600:0;
+                 //用户登陆认证
+                 \Yii::$app->user->login($user,3333);
+                return true;
+             }else{
+                 $this->addError('pwd','密码不正确');
+             }
+         }else{
+             $this->addError('name','没有该用户');
+
+         }
+         return false;
+     }
  }

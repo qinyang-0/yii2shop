@@ -7,5 +7,9 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'defaultRoute' => 'index',
+        //配置RBAC
+        'authManager'=>[
+            'class'=>\yii\rbac\DbManager::className(),
+        ],
     ],
 ];

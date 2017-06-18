@@ -13,6 +13,7 @@ class UserController extends \yii\web\Controller
 {
     public function actionIndex()
     {
+//        var_dump(\Yii::$app->user->identity);
         $users=User::find()->all();
         return $this->render('index',['users'=>$users]);
     }
@@ -27,6 +28,8 @@ class UserController extends \yii\web\Controller
             $model->load($request->post());
             if($model->validate()){
                 $model->login_time=time();
+                $model->pwd = \Yii::$app->security->generatePasswordHash($model->pwd);
+                $model->login_ip=$_SERVER["REMOTE_ADDR"];
                 $model->save(false);
 //                                var_dump($model->login_time);exit;
 
@@ -109,9 +112,15 @@ class UserController extends \yii\web\Controller
     {
         $model=new LoginForm();
         if ($model->load(\Yii::$app->request->post()) && $model->validate()){
-            var_dump($model);exit;
+//            var_dump($model->login());exit;
+            if ($model->login()){
+
+            \Yii::$app->session->setFlash('success','登陆成功');
+            return $this->redirect(['user/index']);
         }
-        return$this->render('login',['model'=>$model]);
+
     }
+        return$this->render('login',['model'=>$model]);
+}
 
 }
