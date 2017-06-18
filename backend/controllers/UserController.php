@@ -27,9 +27,9 @@ class UserController extends \yii\web\Controller
         if ($request->isPost){
             $model->load($request->post());
             if($model->validate()){
-                $model->login_time=time();
+//                $model->login_time=time();
                 $model->pwd = \Yii::$app->security->generatePasswordHash($model->pwd);
-                $model->login_ip=$_SERVER["REMOTE_ADDR"];
+//                $model->login_ip=$_SERVER["REMOTE_ADDR"];
                 $model->save(false);
 //                                var_dump($model->login_time);exit;
 
@@ -111,6 +111,7 @@ class UserController extends \yii\web\Controller
     public function actionLogin()
     {
         $model=new LoginForm();
+//        $model1=new User();
         if ($model->load(\Yii::$app->request->post()) && $model->validate()){
 //            var_dump($model->login());exit;
             if ($model->login()){

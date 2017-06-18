@@ -30,6 +30,9 @@ namespace backend\models;
          if ($user){
              if(\Yii::$app->security->validatePassword($this->pwd,$user->pwd)){
                  //登陆
+                 $user->login_time=time();
+                 $user->login_ip=$_SERVER["REMOTE_ADDR"];
+                 $user->save(false);
                  //自动登陆
                  $duration=$this->remember?7*24*3600:0;
                  //用户登陆认证
