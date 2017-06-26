@@ -2,11 +2,14 @@
 
 namespace backend\controllers;
 
+use backend\components\RbacFilter;
 use backend\models\Articlecategory;
+use yii\web\Controller;
 use yii\web\Request;
 
-class ArticlecategoryController extends \yii\web\Controller
+class ArticlecategoryController extends RoootController
 {
+
     public function actionIndex()
     {
         $types=Articlecategory::find()->all();

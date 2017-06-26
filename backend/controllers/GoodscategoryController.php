@@ -4,11 +4,13 @@ namespace backend\controllers;
 
 use backend\models\Goodscategory;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Request;
 
-class GoodscategoryController extends \yii\web\Controller
+class GoodscategoryController extends RoootController
 {
+
     public function actionIndex()
     {
         $goodss=Goodscategory::find()->orderBy('tree','lft')->all();

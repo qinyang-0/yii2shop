@@ -16,7 +16,7 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => \frontend\models\Member::className(),
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -36,14 +36,24 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+//            'suffix'=>'.html',
             'rules' => [
             ],
         ],
-        */
+        //配置短信组件
+        'sms'=>[
+            'class'=>\frontend\components\Sms::className(),
+            'app_key'=>'24498406',
+            'app_secret'=>'29dd7f19cf67b1a2b3fb12b7a9e0a6bf',
+            'sign_name'=>'陈宇凡',
+            'template_code'=>'SMS_71990183',
+        ]
     ],
+
+
     'params' => $params,
 ];

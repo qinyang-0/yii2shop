@@ -2,8 +2,11 @@
 
 namespace backend\controllers;
 
-class ArticledetailController extends \yii\web\Controller
+use yii\web\Controller;
+
+class ArticledetailController extends RoootController
 {
+
     public function actionIndex()
     {
         return $this->render('index');

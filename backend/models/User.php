@@ -5,6 +5,7 @@ namespace backend\models;
 use backend\controllers\UserController;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -22,6 +23,8 @@ use yii\web\IdentityInterface;
 class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public $repwd;
     public $password;
+    public $roles=[];
+
     /**
      * @inheritdoc
      */
@@ -36,7 +39,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     public function rules()
     {
         return [
-            [['name','repwd','pwd','logo',], 'required'],
+            [['name','roles','repwd','pwd','logo',], 'required'],
             ['repwd','compare', 'compareAttribute'=>'pwd'],
             ['login_time','integer']
         ];
@@ -53,6 +56,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
             'pwd' => '密码',
             'repwd' => '确认密码',
             'logo'=>'头像',
+            'roles'=>'角色'
 
         ];
     }
@@ -66,6 +70,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
      */
     public static function findIdentity($id)
     {
+
         return User::findOne($id);
     }
 
@@ -121,4 +126,23 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface {
     {
        return  $this->getAuthKey() == $authKey;
     }
+//     public function afterSave($insert, $changedAttributes)
+//{
+//    //给用户关联权限
+//    if($this->roles){
+//        $authManager = Yii::$app->authManager;
+//        $authManager->revokeAll($this->id);
+//        foreach ($this->roles as $roleName){
+//            $role = $authManager->getRole($roleName);
+//            if($role) $authManager->assign($role,$this->id);
+//        }
+//    }
+//    parent::afterSave($insert, $changedAttributes);
+//}
+        public static function getRole()
+        {
+            $roles=Yii::$app->authManager->getRoles();
+            return ArrayHelper::map($roles,'name','name');
+        }
+
 }

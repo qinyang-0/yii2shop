@@ -1,6 +1,7 @@
 <?php
 namespace backend\widgets;
 
+use backend\models\Menu;
 use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -29,27 +30,25 @@ class MenuWidget extends Widget{
         if (\Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => '登陆', 'url' => \Yii::$app->user->loginUrl];
         } else {
-            $menuItems[] = ['label' => '注销('.\Yii::$app->user->identity->name.')', 'url' => \Yii::$app->user->loginUrl];
+            $menuItems[] = ['label' => '注销('.\Yii::$app->user->identity->name.')', 'url' => ['user/logout']];
             $menuItems[]=['label' => '用户管理', 'items'=>[
                 ['label'=>'添加用户','url'=>['user/add']],
                 ['label'=>'用户列表','url'=>['user/index']],
             ]];
-            $menuItems[]=['label' => '用户管理', 'items'=>[
-                ['label'=>'添加用户','url'=>['user/add']],
-                ['label'=>'用户列表','url'=>['user/index']],
-            ]];
-            $menuItems[]=['label' => '用户管理', 'items'=>[
-                ['label'=>'添加用户','url'=>['user/add']],
-                ['label'=>'用户列表','url'=>['user/index']],
-            ]];
-            $menuItems[]=['label' => '用户管理', 'items'=>[
-                ['label'=>'添加用户','url'=>['user/add']],
-                ['label'=>'用户列表','url'=>['user/index']],
-            ]];
-            $menuItems[]=['label' => '用户管理', 'items'=>[
-                ['label'=>'添加用户','url'=>['user/add']],
-                ['label'=>'用户列表','url'=>['user/index']],
-            ]];
+          $menus=Menu::findAll(['parent_id'=>0]);
+          foreach ($menus as $menu)
+          {
+              $item=['label'=>$menu->name,'items'=>[]];
+                foreach ($menu->children as $child) {
+                    //根据用户权限判断该菜单是否显示
+//                    var_dump($child);exit;
+                    if (\Yii::$app->user->can($child->url)) {
+                        $item['items'][] = ['label' => $child->name, 'url' => [$child->url]];
+                    }
+                }
+              $menuItems[]=$item;
+//              var_dump($menuItems);exit;
+          }
         }
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],

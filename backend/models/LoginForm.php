@@ -28,8 +28,10 @@ namespace backend\models;
      {
          $user=User::findOne(['name'=>$this->name]);
          if ($user){
+//             var_dump($user->pwd);exit;
              if(\Yii::$app->security->validatePassword($this->pwd,$user->pwd)){
                  //登陆
+
                  $user->login_time=time();
                  $user->login_ip=$_SERVER["REMOTE_ADDR"];
                  $user->save(false);

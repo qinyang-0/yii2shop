@@ -2,13 +2,17 @@
 
 namespace backend\controllers;
 
+use backend\components\RbacFilter;
 use backend\models\Brand;
+use yii\web\Controller;
 use yii\web\Request;
 use xj\uploadify\UploadAction;
 
 
-class BrandController extends \yii\web\Controller
+class BrandController extends RoootController
 {
+
+
     public function actionIndex()
     {
         $brands=Brand::find()->all();
@@ -60,7 +64,7 @@ class BrandController extends \yii\web\Controller
                 'enableCsrf' => true, // default
                 'postFieldName' => 'Filedata', // default
                 //BEGIN METHOD
-                'format' => [$this, 'methodName'],
+                //'format' => [$this, 'methodName'],
                 //END METHOD
                 //BEGIN CLOSURE BY-HASH
                 'overwriteIfExist' => true,
@@ -71,13 +75,13 @@ class BrandController extends \yii\web\Controller
                 },
                 //END CLOSURE BY-HASH
                 //BEGIN CLOSURE BY TIME
-                'format' => function (UploadAction $action) {
-                    $fileext = $action->uploadfile->getExtension();
-                    $filehash = sha1(uniqid() . time());
-                    $p1 = substr($filehash, 0, 2);
-                    $p2 = substr($filehash, 2, 2);
-                    return "{$p1}/{$p2}/{$filehash}.{$fileext}";
-                },
+//                'format' => function (UploadAction $action) {
+//                    $fileext = $action->uploadfile->getExtension();
+//                    $filehash = sha1(uniqid() . time());
+//                    $p1 = substr($filehash, 0, 2);
+//                    $p2 = substr($filehash, 2, 2);
+//                    return "{$p1}/{$p2}/{$filehash}.{$fileext}";
+//                },
                 //END CLOSURE BY TIME
                 'validateOptions' => [
                     'extensions' => ['jpg', 'gif','png'],
@@ -89,12 +93,12 @@ class BrandController extends \yii\web\Controller
                 'afterValidate' => function (UploadAction $action) {},
                 'beforeSave' => function (UploadAction $action) {},
                 'afterSave' => function (UploadAction $action) {
-                   $imgUrl=$action->getWebUrl();
-                   //$action->output['fileUrl']=$action->getWebUrl();
-                     $qiniu=\Yii::$app->qiniu;
-                     $qiniu->uploadFile(\yii::getAlias('@webroot').$imgUrl,$imgUrl );
-                     $url=$qiniu->getLink($imgUrl);
-                     $action->output['fileUrl']=$url;
+                        $imgUrl=$action->getWebUrl();
+                    //$action->output['fileUrl']=$action->getWebUrl();
+                    $qiniu=\Yii::$app->qiniu;
+                    $qiniu->uploadFile(\yii::getAlias('@webroot').$imgUrl,$imgUrl );
+                    $url=$qiniu->getLink($imgUrl);
+                    $action->output['fileUrl']=$url;
                 },
             ],
         ];

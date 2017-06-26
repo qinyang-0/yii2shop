@@ -81,5 +81,9 @@ class Goodscategory extends \yii\db\ActiveRecord
 //        var_dump($re);exit;
         return new  GoodscategoryQuery(get_called_class());
     }
+    public function getChildren()
+    {
+        return $this->hasMany(self::className(),['parent_id'=>'id']);
+    }
 
 }

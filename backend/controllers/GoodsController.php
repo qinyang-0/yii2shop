@@ -9,10 +9,12 @@ use backend\models\Goodsdaycount;
 use backend\models\Goodsintro;
 use xj\uploadify\UploadAction;
 use yii\helpers\ArrayHelper;
+use yii\web\Controller;
 use yii\web\Request;
 
-class GoodsController extends \yii\web\Controller
+class GoodsController extends RoootController
 {
+
     public function actionIndex()
     {
         $goodss=Goods::find()->all();
@@ -29,7 +31,7 @@ class GoodsController extends \yii\web\Controller
 
         if ($model->load(\Yii::$app->request->post()) && $model4->load(\Yii::$app->request->post())){
 
-
+//                var_dump($model->logo);exit;
             if($model->validate()){
 
                 $model->save(false);
@@ -70,25 +72,54 @@ class GoodsController extends \yii\web\Controller
     }
     public function actionEdit($id)
     {
+
         $model=Goods::findOne(['id'=>$id]);
-        $request=new Request();
-        if ($request->isPost){
-            $model->load($request->post());
+        $model2=new Goodscategory();
+        $model3=Brand::find()->all();
+        $model4=new Goodsintro();
+//        $model5=new Goodsdaycount();
+//        var_dump($model4->countent);exit;
+
+        if ($model->load(\Yii::$app->request->post()) && $model4->load(\Yii::$app->request->post())){
+
+//                var_dump($model->logo);exit;
             if($model->validate()){
+
                 $model->save(false);
+
+                $model4->goods_id=$model->id;
+                if($model4->validate()){
+                    $model4->save(false);
+
+                }
+//                var_dump($model4->countent);exit;
             }else{
                 var_dump($model->getErrors());exit;
             }
+            $day=date('Y-m-d');
+            $goodscount=Goodsdaycount::findOne(['day'=>$day]);
+            if($goodscount==null)
+            {
+                $goodscount=new Goodsdaycount();
+                $goodscount->day=$day;
+                $goodscount->count=0;
+                $goodscount->save();
+            }
+            $model->sn=date('Ymd').substr('000'.($goodscount->count+1),-4,4);
+            $model->save();
+//            var_dump($model->id);exit;
+            $model4->goods_id = $model->id;
+//            var_dump($model4->goods_id);exit;
+
+            $model4->save();
+            Goodsdaycount::updateAllCounters(['count'=>1],['day'=>$day]);
+            \Yii::$app->session->setFlash('seccess','商品添加成功，庆添加商品相册');
             return $this->redirect(['goods/index']);
         }
-        return $this->render('add',['model'=>$model]);
-    }
-    public function actionDelete($id)
-    {
-        $model=Goods::findOne(['id'=>$id]);
-        $model->status=-1;
-        $model->save();
-        return $this->redirect(['goods/index']);
+        $categories=ArrayHelper::merge([['id'=>0,'name'=>'顶级分类',
+            'parent_id'=>0]],Goodscategory::find()->asArray()->all());
+
+        return $this->render('add',['model'=>$model,'model2'=>$model2,'categories'=>$categories,'model3'=>$model3,'model4'=>$model4]);
     }
 
     public function actions() {

@@ -6,8 +6,9 @@ use backend\models\RoleForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class RbacController extends Controller
+class RbacController extends RoootController
 {
+
     public function actionAddPermission()
     {
         $model=new PermissionForm();

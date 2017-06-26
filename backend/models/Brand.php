@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use backend\components\RbacFilter;
 use Yii;
 
 /**
@@ -16,6 +17,7 @@ use Yii;
  */
 class Brand extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */

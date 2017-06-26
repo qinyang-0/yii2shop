@@ -2,15 +2,26 @@
 
 namespace backend\controllers;
 
+use backend\components\RbacFilter;
 use backend\models\Brand;
 use backend\models\LoginForm;
 use backend\models\User;
+use yii\web\Controller;
 use yii\web\Request;
 use xj\uploadify\UploadAction;
 
 
-class UserController extends \yii\web\Controller
+class UserController extends Controller
 {
+//    public function behaviors()
+//    {
+//        return [
+//            'rbac'=>[
+//                'class'=>RbacFilter::className(),
+//            ]
+//        ];
+//    }
+
     public function actionIndex()
     {
 //        var_dump(\Yii::$app->user->identity);
@@ -19,6 +30,7 @@ class UserController extends \yii\web\Controller
     }
     public function actionAdd()
     {
+
 
         $model=new User();
         $request=new Request();
@@ -32,16 +44,23 @@ class UserController extends \yii\web\Controller
 //                $model->login_ip=$_SERVER["REMOTE_ADDR"];
                 $model->save(false);
 //                                var_dump($model->login_time);exit;
+                $authManager=\Yii::$app->authManager;
+//                var_dump($model->roles);exit;
+//                foreach ($model->roles as $role){
 
+                $authManager->assign($authManager->getRole($model->roles),$model->id);
+//            }
             }else{
                 var_dump($model->getErrors());exit;
             }
             return $this->redirect(['user/index']);
         }
         return $this->render('add',['model'=>$model]);
+
     }
     public function actionEdit($id)
     {
+
         $model=User::findOne(['id'=>$id]);
         $request=new Request();
         if ($request->isPost){
@@ -123,5 +142,20 @@ class UserController extends \yii\web\Controller
     }
         return$this->render('login',['model'=>$model]);
 }
+    public function actionLogout()
+    {
+        \Yii::$app->user->logout();
+        return $this->redirect(['user/login']);
+    }
+//    public function behaviors()
+//    {
+//        return [
+//            'rbac'=>[
+//                'class'=>RbacFilter::className(),
+//                'only'=>['add','index'],
+//
+//            ]
+//        ];
+//    }
 
 }

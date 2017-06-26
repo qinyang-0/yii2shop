@@ -5,10 +5,12 @@ namespace backend\controllers;
 use backend\models\Article;
 use backend\models\Articlecategory;
 use backend\models\Articledetail;
+use yii\web\Controller;
 use yii\web\Request;
 
-class ArticleController extends \yii\web\Controller
+class ArticleController extends RoootController
 {
+
     public function actionIndex()
     {
         $articles=Article::find()->all();

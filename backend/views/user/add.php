@@ -4,6 +4,8 @@ $form=\yii\bootstrap\ActiveForm::begin();
 echo $form->field($model,'name');
 echo $form->field($model,'pwd');
 echo $form->field($model,'repwd');
+//var_dump(Yii::$app->authManager->getRoles());exit;
+echo $form->field($model,'roles')->dropDownList(\backend\models\User::getRole());
 echo $form->field($model,'logo')->hiddenInput(['id'=>'logo_id']);
 echo \yii\bootstrap\Html::fileInput('test', NULL, ['id' => 'test']);
 echo \xj\uploadify\Uploadify::widget([
