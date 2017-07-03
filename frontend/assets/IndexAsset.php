@@ -16,7 +16,11 @@ class IndexAsset extends AssetBundle
         'style/bottomnav.css',
         'style/footer.css',
 	    'style/jqzoom.css',
-        'style/goods.css'
+        'style/goods.css',
+        'style/home.css',
+        'style/address.css',
+
+
 
 
 
@@ -26,12 +30,14 @@ class IndexAsset extends AssetBundle
 
     ];
     public $js = [
-        'js/jquery-1.8.3.min.js',
+        //'js/jquery-1.8.3.min.js',
         'js/header.js',
         'js/list.js',
         'js/index.js',
         'js/goods.js',
-        'js/jqzoom-core.js'
+        //'js/jqzoom-core.js',
+        'js/home.js',
+
     ];
     public $depends = [
 //        JqueryAsset::className(),

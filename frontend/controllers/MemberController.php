@@ -44,7 +44,7 @@ class MemberController extends \yii\web\Controller
             if ($model->login()) {
 
                 \Yii::$app->session->setFlash('success', '登陆成功');
-                return $this->redirect(['xxxx/index']);
+                return $this->redirect(['index/index']);
             }
 
         }

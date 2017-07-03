@@ -27,7 +27,7 @@ use yii\helpers\Html;
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
+                <li>您好，欢迎来到京西！[<?=Html::a('请登陆',['member/login'])?>] [<?=Html::a('免费注册',['member/add'])?>] </li>
                 <li class="line">|</li>
                 <li>我的订单</li>
                 <li class="line">|</li>
@@ -227,12 +227,12 @@ use yii\helpers\Html;
             <p class="copyright">
                 © 2005-2013 京东网上商城 版权所有，并保留所有权利。  ICP备案证书号:京ICP证070359号
             </p>
-            <p class="auth">
-                <a href=""><img src="images/xin.png" alt="" /></a>
-                <a href=""><img src="images/kexin.jpg" alt="" /></a>
-                <a href=""><img src="images/police.jpg" alt="" /></a>
-                <a href=""><img src="images/beian.gif" alt="" /></a>
-            </p>
+<!--            <p class="auth">-->
+<!--                <a href=""><img src="images/xin.png" alt="" /></a>-->
+<!--                <a href=""><img src="images/kexin.jpg" alt="" /></a>-->
+<!--                <a href=""><img src="images/police.jpg" alt="" /></a>-->
+<!--                <a href=""><img src="images/beian.gif" alt="" /></a>-->
+<!--            </p>-->
         </div>
         <!-- 底部版权 end -->
     <!-- 底部版权 end -->

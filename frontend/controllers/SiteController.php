@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\Goods;
+use frontend\models\Address;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -18,6 +20,7 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+    public $layout='cart';
     /**
      * @inheritdoc
      */
@@ -212,4 +215,32 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+        public function actionCart()
+    {
+        $cookies=\Yii::$app->request->cookies;
+        $cookie=$cookies->get('cart');
+        if ($cookie==null){
+
+            $cart=[];
+        }else{
+            $cart=unserialize($cookie->value);
+        }
+        $models=[];
+        foreach ($cart as $goods_id=>$amount){
+            $goods=Goods::findOne(['id'=>$goods_id])->attributes;
+            $goods['amount']=$amount;
+            $models[]=$goods;
+        }
+//        var_dump($models);
+        return $this->render('cart',['models'=>$models]);
+
+
+    }
+    public function actionFlow()
+    {
+        $rss=Address::find()->all();
+        return $this->render('flow',['rss'=>$rss]);
+    }
+
 }
