@@ -1,8 +1,9 @@
 <?php
 namespace frontend\controllers;
 
-use yii\web\Controller;
 use EasyWeChat\Foundation\Application;
+use yii\web\Controller;
+
 
 class WechatController extends Controller{
     public $enableCsrfValidation=false;
