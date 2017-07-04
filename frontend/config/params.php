@@ -6,13 +6,13 @@ return [
      *
      * 当值为 false 时，所有的日志都不会记录
      */
-    'debug'  => true,
+    'wechat'=>['debug'  => false,
     /**
      * 账号基本信息，请从微信公众平台/开放平台获取
      */
     'app_id'  => 'wxe7d752166b44e46a',         // AppID
     'secret'  => '66400f3a244f060ea59ed3fcc63dde78',     // AppSecret
-    'token'   => 'qingyang',          // Token
+    'token'   => 'qinyang',          // Token
     'aes_key' => '',                    // EncodingAESKey，安全模式下请一定要填写！！！
     /**
      * 日志配置
@@ -59,4 +59,5 @@ return [
         'timeout' => 3.0, // 超时时间（秒）
         //'verify' => false, // 关掉 SSL 认证（强烈不建议！！！）
     ],
+]
 ];
